@@ -25,6 +25,12 @@ public class Main extends PluginBase implements Listener {
     public void onEnable() {
         saveDefaultConfig();
         getServer().getPluginManager().registerEvents(this, this);
+
+        if (getConfig().getString("database").isEmpty() || getConfig().getString("collection").isEmpty()) {
+            getLogger().error("Edit config!");
+            getServer().getPluginManager().disablePlugin(this);
+        }
+
     }
 
     @EventHandler()

@@ -10,4 +10,8 @@ public class PlayerAPI extends Player implements IPlayer {
         super(interfaz, clientID, ip, port);
     }
 
+    @Override
+    public String toString() {
+        return "PlayerAPI(name='" + this.getName() + "', location=" + super.toString() + ')';
+    }
 }

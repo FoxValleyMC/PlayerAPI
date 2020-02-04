@@ -20,6 +20,7 @@ dependencies {
     implementation "cn.nukkit:nukkit:1.0-SNAPSHOT"
     implementation "com.github.TimelessMC:NukkitDB:master-SNAPSHOT"
     implementation "com.github.TimelessMC:AliasPro:master-SNAPSHOT"
+    implementation "com.github.TimelessMC:NetWorth:361989e"
 }
 
 jar {

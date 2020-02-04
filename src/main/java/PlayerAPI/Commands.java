@@ -21,8 +21,7 @@ public class Commands extends PluginCommand {
                 if (args.length == 1) {
                     PlayerAPI player = (PlayerAPI) sender;
                     String uuid = player.getUuid();
-                    player.setDisplayName(args[0]);
-                    player.setNameTag(args[0]);
+                    player.setAlias(args[0]);
                     player.sendMessage("Set Alias/nickname to: "+args[0]);
                     NukkitDB.updateDocument(
                             uuid, "uuid", "alias", args[0], database, collection

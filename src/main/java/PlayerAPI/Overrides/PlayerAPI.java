@@ -12,6 +12,13 @@ public class PlayerAPI extends Player implements IPlayer, NetWorthImpl {
         super(interfaz, clientID, ip, port);
     }
 
+    // PlayerAPI
+    public void setAlias(String alias) {
+        setNameTag(alias);
+        setDisplayName(alias);
+    }
+
+    // NetWorth
     public int getMoney() {
         String database = NetWorth.Main.getInstance().getConfig().getString("database");
         String collection = NetWorth.Main.getInstance().getConfig().getString("collection");

@@ -2,6 +2,7 @@ package PlayerAPI;
 
 import NukkitDB.NukkitDB;
 import PlayerAPI.Overrides.PlayerAPI;
+import cn.nukkit.command.CommandMap;
 import cn.nukkit.event.EventHandler;
 import cn.nukkit.event.Listener;
 import cn.nukkit.event.player.PlayerCreationEvent;
@@ -13,6 +14,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Main extends PluginBase implements Listener {
+
+    @Override
+    public void onLoad() {
+        CommandMap commandMap = getServer().getCommandMap();
+        commandMap.register("PlayerAPI", new Commands("alias", this));
+    }
 
     @Override
     public void onEnable() {

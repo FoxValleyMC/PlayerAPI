@@ -112,11 +112,11 @@ public class PlayerAPI extends Player implements IPlayer, NetWorthImpl, Afterlif
 
     }
 
-    public void addXp() {
+    public void addXp(int amount) {
 
     }
 
-    public void removeXp() {
+    public void removeXp(int amount) {
 
     }
 

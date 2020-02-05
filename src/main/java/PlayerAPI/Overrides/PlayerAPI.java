@@ -5,6 +5,7 @@ import NukkitDB.NukkitDB;
 import cn.nukkit.IPlayer;
 import cn.nukkit.Player;
 import cn.nukkit.network.SourceInterface;
+import cn.nukkit.plugin.Plugin;
 
 public class PlayerAPI extends Player implements IPlayer, NetWorthImpl {
 
@@ -20,49 +21,63 @@ public class PlayerAPI extends Player implements IPlayer, NetWorthImpl {
 
     // NetWorth
     public int getMoney() {
-        String database = NetWorth.Main.getInstance().getConfig().getString("database");
-        String collection = NetWorth.Main.getInstance().getConfig().getString("collection");
-        return Integer.parseInt(
-                NukkitDB.query(
-                        getUuid(), "uuid", database, collection
-                ).get("balance").toString()
-        );
+        if (getPlugin("NetWorth") != null) {
+            String database = NetWorth.Main.getInstance().getConfig().getString("database");
+            String collection = NetWorth.Main.getInstance().getConfig().getString("collection");
+            return Integer.parseInt(
+                    NukkitDB.query(
+                            getUuid(), "uuid", database, collection
+                    ).get("balance").toString()
+            );
+        }
+        return 0;
     }
 
     public void setMoney(int amount) {
-        String database = NetWorth.Main.getInstance().getConfig().getString("database");
-        String collection = NetWorth.Main.getInstance().getConfig().getString("collection");
-        NukkitDB.updateDocument(
-                getUuid(), "uuid", "balance", amount, database, collection
-        );
+        if (getPlugin("NetWorth") != null) {
+            String database = NetWorth.Main.getInstance().getConfig().getString("database");
+            String collection = NetWorth.Main.getInstance().getConfig().getString("collection");
+            NukkitDB.updateDocument(
+                    getUuid(), "uuid", "balance", amount, database, collection
+            );
+        }
     }
 
     public void addMoney(int amount) {
-        String database = NetWorth.Main.getInstance().getConfig().getString("database");
-        String collection = NetWorth.Main.getInstance().getConfig().getString("collection");
-        int currentBalance = getMoney();
-        int newBalance = currentBalance + amount;
-        NukkitDB.updateDocument(
-                getUuid(), "uuid", "balance", newBalance, database, collection
-        );
+        if (getPlugin("NetWorth") != null) {
+            String database = NetWorth.Main.getInstance().getConfig().getString("database");
+            String collection = NetWorth.Main.getInstance().getConfig().getString("collection");
+            int currentBalance = getMoney();
+            int newBalance = currentBalance + amount;
+            NukkitDB.updateDocument(
+                    getUuid(), "uuid", "balance", newBalance, database, collection
+            );
+        }
     }
 
     public void subtractMoney(int amount) {
-        String database = NetWorth.Main.getInstance().getConfig().getString("database");
-        String collection = NetWorth.Main.getInstance().getConfig().getString("collection");
-        int currentBalance = getMoney();
-        int newBalance;
-        if (currentBalance <= 0) {
-            newBalance = 0;
-        } else {
-            newBalance = currentBalance - amount;
+        if (getPlugin("NetWorth") != null) {
+            String database = NetWorth.Main.getInstance().getConfig().getString("database");
+            String collection = NetWorth.Main.getInstance().getConfig().getString("collection");
+            int currentBalance = getMoney();
+            int newBalance;
+            if (currentBalance <= 0) {
+                newBalance = 0;
+            } else {
+                newBalance = currentBalance - amount;
+            }
+            NukkitDB.updateDocument(
+                    getUuid(), "uuid", "balance", newBalance, database, collection
+            );
         }
-        NukkitDB.updateDocument(
-                getUuid(), "uuid", "balance", newBalance, database, collection
-        );
     }
 
-    @Override
+
+    // mechanics
+    public Plugin getPlugin(String name) {
+        return this.getServer().getPluginManager().getPlugin(name);
+    }
+
     public String getUuid() {
         return this.getUniqueId().toString();
     }

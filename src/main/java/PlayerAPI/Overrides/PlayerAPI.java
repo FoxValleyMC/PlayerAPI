@@ -127,7 +127,7 @@ public class PlayerAPI extends Player implements IPlayer, NetWorthImpl, Afterlif
         return 0;
     }
 
-    public int getExperience() {
+    public int getXp() {
         if (getPlugin("AfterLife") != null) {
             String database = com.steve.nukkit.AfterLife.Main.getPlugin().getConfig().getString("database");
             String collection = com.steve.nukkit.AfterLife.Main.getPlugin().getConfig().getString("collection");;

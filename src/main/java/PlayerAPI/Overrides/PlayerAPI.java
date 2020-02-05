@@ -89,18 +89,67 @@ public class PlayerAPI extends Player implements IPlayer, NetWorthImpl, Afterlif
 
     // Afterlife
     public int getKills() {
+        if (getPlugin("AfterLife") != null) {
+            String database = com.steve.nukkit.AfterLife.Main.getPlugin().getConfig().getString("database");
+            String collection = com.steve.nukkit.AfterLife.Main.getPlugin().getConfig().getString("collection");;
+            return Integer.parseInt(
+                    NukkitDB.query(
+                            getUuid(), "uuid", database, collection
+                    ).get("kills").toString()
+            );
+        }
         return 0;
     }
 
     public int getDeaths() {
+        if (getPlugin("AfterLife") != null) {
+            String database = com.steve.nukkit.AfterLife.Main.getPlugin().getConfig().getString("database");
+            String collection = com.steve.nukkit.AfterLife.Main.getPlugin().getConfig().getString("collection");;
+            return Integer.parseInt(
+                    NukkitDB.query(
+                            getUuid(), "uuid", database, collection
+                    ).get("deaths").toString()
+            );
+        }
         return 0;
     }
 
     public int getLevels() {
+        if (getPlugin("AfterLife") != null) {
+            String database = com.steve.nukkit.AfterLife.Main.getPlugin().getConfig().getString("database");
+            String collection = com.steve.nukkit.AfterLife.Main.getPlugin().getConfig().getString("collection");;
+            return Integer.parseInt(
+                    NukkitDB.query(
+                            getUuid(), "uuid", database, collection
+                    ).get("levels").toString()
+            );
+        }
+        return 0;
+    }
+
+    public int getExperience() {
+        if (getPlugin("AfterLife") != null) {
+            String database = com.steve.nukkit.AfterLife.Main.getPlugin().getConfig().getString("database");
+            String collection = com.steve.nukkit.AfterLife.Main.getPlugin().getConfig().getString("collection");;
+            return Integer.parseInt(
+                    NukkitDB.query(
+                            getUuid(), "uuid", database, collection
+                    ).get("global-xp").toString()
+            );
+        }
         return 0;
     }
 
     public int getNeededXp() {
+        if (getPlugin("AfterLife") != null) {
+            String database = com.steve.nukkit.AfterLife.Main.getPlugin().getConfig().getString("database");
+            String collection = com.steve.nukkit.AfterLife.Main.getPlugin().getConfig().getString("collection");;
+            return Integer.parseInt(
+                    NukkitDB.query(
+                            getUuid(), "uuid", database, collection
+                    ).get("experience").toString()
+            );
+        }
         return 0;
     }
 

@@ -91,7 +91,7 @@ public class PlayerAPI extends Player implements IPlayer, NetWorthImpl, Afterlif
     public int getKills() {
         if (getPlugin("AfterLife") != null) {
             String database = com.steve.nukkit.AfterLife.Main.getPlugin().getConfig().getString("database");
-            String collection = com.steve.nukkit.AfterLife.Main.getPlugin().getConfig().getString("collection");;
+            String collection = com.steve.nukkit.AfterLife.Main.getPlugin().getConfig().getString("collection");
             return Integer.parseInt(
                     NukkitDB.query(
                             getUuid(), "uuid", database, collection
@@ -104,7 +104,7 @@ public class PlayerAPI extends Player implements IPlayer, NetWorthImpl, Afterlif
     public int getDeaths() {
         if (getPlugin("AfterLife") != null) {
             String database = com.steve.nukkit.AfterLife.Main.getPlugin().getConfig().getString("database");
-            String collection = com.steve.nukkit.AfterLife.Main.getPlugin().getConfig().getString("collection");;
+            String collection = com.steve.nukkit.AfterLife.Main.getPlugin().getConfig().getString("collection");
             return Integer.parseInt(
                     NukkitDB.query(
                             getUuid(), "uuid", database, collection
@@ -117,7 +117,7 @@ public class PlayerAPI extends Player implements IPlayer, NetWorthImpl, Afterlif
     public int getLevels() {
         if (getPlugin("AfterLife") != null) {
             String database = com.steve.nukkit.AfterLife.Main.getPlugin().getConfig().getString("database");
-            String collection = com.steve.nukkit.AfterLife.Main.getPlugin().getConfig().getString("collection");;
+            String collection = com.steve.nukkit.AfterLife.Main.getPlugin().getConfig().getString("collection");
             return Integer.parseInt(
                     NukkitDB.query(
                             getUuid(), "uuid", database, collection
@@ -130,7 +130,7 @@ public class PlayerAPI extends Player implements IPlayer, NetWorthImpl, Afterlif
     public int getXp() {
         if (getPlugin("AfterLife") != null) {
             String database = com.steve.nukkit.AfterLife.Main.getPlugin().getConfig().getString("database");
-            String collection = com.steve.nukkit.AfterLife.Main.getPlugin().getConfig().getString("collection");;
+            String collection = com.steve.nukkit.AfterLife.Main.getPlugin().getConfig().getString("collection");
             return Integer.parseInt(
                     NukkitDB.query(
                             getUuid(), "uuid", database, collection
@@ -143,7 +143,7 @@ public class PlayerAPI extends Player implements IPlayer, NetWorthImpl, Afterlif
     public int getNeededXp() {
         if (getPlugin("AfterLife") != null) {
             String database = com.steve.nukkit.AfterLife.Main.getPlugin().getConfig().getString("database");
-            String collection = com.steve.nukkit.AfterLife.Main.getPlugin().getConfig().getString("collection");;
+            String collection = com.steve.nukkit.AfterLife.Main.getPlugin().getConfig().getString("collection");
             return Integer.parseInt(
                     NukkitDB.query(
                             getUuid(), "uuid", database, collection

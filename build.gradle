@@ -21,7 +21,7 @@ dependencies {
     implementation "com.github.TimelessMC:NukkitDB:master-SNAPSHOT"
     implementation "com.github.TimelessMC:AliasPro:master-SNAPSHOT"
     implementation "com.github.TimelessMC:NetWorth:361989e"
-    implementation "com.github.TimelessMC:Afterlife:master-SNAPSHOT"
+    implementation "com.github.TimelessMC:Afterlife:bb5a94a"
 }
 
 jar {

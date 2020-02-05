@@ -6,11 +6,26 @@ import cn.nukkit.IPlayer;
 import cn.nukkit.Player;
 import cn.nukkit.network.SourceInterface;
 import cn.nukkit.plugin.Plugin;
+import com.steve.nukkit.AfterLife.utils.AfterlifeImpl;
 
-public class PlayerAPI extends Player implements IPlayer, NetWorthImpl {
+public class PlayerAPI extends Player implements IPlayer, NetWorthImpl, AfterlifeImpl {
 
     public PlayerAPI(SourceInterface interfaz, Long clientID, String ip, int port) {
         super(interfaz, clientID, ip, port);
+    }
+
+    // mechanics
+    public Plugin getPlugin(String name) {
+        return this.getServer().getPluginManager().getPlugin(name);
+    }
+
+    public String getUuid() {
+        return this.getUniqueId().toString();
+    }
+
+    @Override
+    public String toString() {
+        return "PlayerAPI(name='" + this.getName() + "', location=" + super.toString() + ')';
     }
 
     // PlayerAPI
@@ -72,18 +87,44 @@ public class PlayerAPI extends Player implements IPlayer, NetWorthImpl {
         }
     }
 
-
-    // mechanics
-    public Plugin getPlugin(String name) {
-        return this.getServer().getPluginManager().getPlugin(name);
+    // Afterlife
+    public int getKills() {
+        return 0;
     }
 
-    public String getUuid() {
-        return this.getUniqueId().toString();
+    public int getDeaths() {
+        return 0;
     }
 
-    @Override
-    public String toString() {
-        return "PlayerAPI(name='" + this.getName() + "', location=" + super.toString() + ')';
+    public int getLevels() {
+        return 0;
+    }
+
+    public int getNeededXp() {
+        return 0;
+    }
+
+    public void addKill() {
+
+    }
+
+    public void addDeath() {
+
+    }
+
+    public void addXp() {
+
+    }
+
+    public void removeXp() {
+
+    }
+
+    public void addLevel() {
+
+    }
+
+    public void removeLevel() {
+
     }
 }

@@ -1,12 +1,11 @@
 package PlayerAPI.Overrides;
 
-import NetWorth.Overrides.NetWorthImpl;
+import PlayerAPI.Impl.*;
 import NukkitDB.NukkitDB;
 import cn.nukkit.IPlayer;
 import cn.nukkit.Player;
 import cn.nukkit.network.SourceInterface;
 import cn.nukkit.plugin.Plugin;
-import Afterlife.utils.AfterlifeImpl;
 
 public class PlayerAPI extends Player implements IPlayer, NetWorthImpl, AfterlifeImpl {
 

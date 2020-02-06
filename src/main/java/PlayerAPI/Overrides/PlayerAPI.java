@@ -6,7 +6,7 @@ import cn.nukkit.IPlayer;
 import cn.nukkit.Player;
 import cn.nukkit.network.SourceInterface;
 import cn.nukkit.plugin.Plugin;
-import com.steve.nukkit.AfterLife.utils.AfterlifeImpl;
+import Afterlife.utils.AfterlifeImpl;
 
 public class PlayerAPI extends Player implements IPlayer, NetWorthImpl, AfterlifeImpl {
 
@@ -28,7 +28,7 @@ public class PlayerAPI extends Player implements IPlayer, NetWorthImpl, Afterlif
         return "PlayerAPI(name='" + this.getName() + "', location=" + super.toString() + ')';
     }
 
-    // PlayerAPI
+    // PlayerAPI - AliasPro
     public void setAlias(String alias) {
         setNameTag(alias);
         setDisplayName(alias);
@@ -89,9 +89,9 @@ public class PlayerAPI extends Player implements IPlayer, NetWorthImpl, Afterlif
 
     // Afterlife
     public int getKills() {
-        if (getPlugin("AfterLife") != null) {
-            String database = com.steve.nukkit.AfterLife.Main.getPlugin().getConfig().getString("database");
-            String collection = com.steve.nukkit.AfterLife.Main.getPlugin().getConfig().getString("collection");
+        if (getPlugin("Afterlife") != null) {
+            String database = Afterlife.Main.getInstance().getConfig().getString("database");
+            String collection = Afterlife.Main.getInstance().getConfig().getString("collection");
             return Integer.parseInt(
                     NukkitDB.query(
                             getUuid(), "uuid", database, collection
@@ -102,9 +102,9 @@ public class PlayerAPI extends Player implements IPlayer, NetWorthImpl, Afterlif
     }
 
     public int getKillStreak() {
-        if (getPlugin("AfterLife") != null) {
-            String database = com.steve.nukkit.AfterLife.Main.getPlugin().getConfig().getString("database");
-            String collection = com.steve.nukkit.AfterLife.Main.getPlugin().getConfig().getString("collection");
+        if (getPlugin("Afterlife") != null) {
+            String database = Afterlife.Main.getInstance().getConfig().getString("database");
+            String collection = Afterlife.Main.getInstance().getConfig().getString("collection");
             return Integer.parseInt(
                     NukkitDB.query(
                             getUuid(), "uuid", database, collection
@@ -115,9 +115,9 @@ public class PlayerAPI extends Player implements IPlayer, NetWorthImpl, Afterlif
     }
 
     public int getDeaths() {
-        if (getPlugin("AfterLife") != null) {
-            String database = com.steve.nukkit.AfterLife.Main.getPlugin().getConfig().getString("database");
-            String collection = com.steve.nukkit.AfterLife.Main.getPlugin().getConfig().getString("collection");
+        if (getPlugin("Afterlife") != null) {
+            String database = Afterlife.Main.getInstance().getConfig().getString("database");
+            String collection = Afterlife.Main.getInstance().getConfig().getString("collection");
             return Integer.parseInt(
                     NukkitDB.query(
                             getUuid(), "uuid", database, collection
@@ -128,9 +128,9 @@ public class PlayerAPI extends Player implements IPlayer, NetWorthImpl, Afterlif
     }
 
     public int getLevels() {
-        if (getPlugin("AfterLife") != null) {
-            String database = com.steve.nukkit.AfterLife.Main.getPlugin().getConfig().getString("database");
-            String collection = com.steve.nukkit.AfterLife.Main.getPlugin().getConfig().getString("collection");
+        if (getPlugin("Afterlife") != null) {
+            String database = Afterlife.Main.getInstance().getConfig().getString("database");
+            String collection = Afterlife.Main.getInstance().getConfig().getString("collection");
             return Integer.parseInt(
                     NukkitDB.query(
                             getUuid(), "uuid", database, collection
@@ -141,9 +141,9 @@ public class PlayerAPI extends Player implements IPlayer, NetWorthImpl, Afterlif
     }
 
     public int getXp() {
-        if (getPlugin("AfterLife") != null) {
-            String database = com.steve.nukkit.AfterLife.Main.getPlugin().getConfig().getString("database");
-            String collection = com.steve.nukkit.AfterLife.Main.getPlugin().getConfig().getString("collection");
+        if (getPlugin("Afterlife") != null) {
+            String database = Afterlife.Main.getInstance().getConfig().getString("database");
+            String collection = Afterlife.Main.getInstance().getConfig().getString("collection");
             return Integer.parseInt(
                     NukkitDB.query(
                             getUuid(), "uuid", database, collection
@@ -154,9 +154,9 @@ public class PlayerAPI extends Player implements IPlayer, NetWorthImpl, Afterlif
     }
 
     public int getNeededXp() {
-        if (getPlugin("AfterLife") != null) {
-            String database = com.steve.nukkit.AfterLife.Main.getPlugin().getConfig().getString("database");
-            String collection = com.steve.nukkit.AfterLife.Main.getPlugin().getConfig().getString("collection");
+        if (getPlugin("Afterlife") != null) {
+            String database = Afterlife.Main.getInstance().getConfig().getString("database");
+            String collection = Afterlife.Main.getInstance().getConfig().getString("collection");
             return Integer.parseInt(
                     NukkitDB.query(
                             getUuid(), "uuid", database, collection
@@ -167,26 +167,100 @@ public class PlayerAPI extends Player implements IPlayer, NetWorthImpl, Afterlif
     }
 
     public void addKill() {
-
+        if (getPlugin("Afterlife") != null) {
+            String database = Afterlife.Main.getInstance().getConfig().getString("database");
+            String collection = Afterlife.Main.getInstance().getConfig().getString("collection");
+            int currentData = getKills();
+            int updatedData = currentData + 1;
+            int currentStreak = getKillStreak();
+            int updatedStreak = currentStreak + 1;
+            NukkitDB.updateDocument(getUuid(), "uuid", "kills", updatedData, database, collection);
+            NukkitDB.updateDocument(getUuid(), "uuid", "kill-streak", updatedStreak, database, collection);
+        }
     }
 
     public void addDeath() {
-
+        if (getPlugin("Afterlife") != null) {
+            String database = Afterlife.Main.getInstance().getConfig().getString("database");
+            String collection = Afterlife.Main.getInstance().getConfig().getString("collection");
+            int currentData = getDeaths();
+            int updatedData = currentData + 1;
+            NukkitDB.updateDocument(getUuid(), "uuid", "kills", updatedData, database, collection);
+            NukkitDB.updateDocument(getUuid(), "uuid", "kill-streak", 0, database, collection);
+        }
     }
 
     public void addXp(int amount) {
-
+        if (getPlugin("Afterlife") != null) {
+            String database = Afterlife.Main.getInstance().getConfig().getString("database");
+            String collection = Afterlife.Main.getInstance().getConfig().getString("collection");
+            Afterlife.Main main = Afterlife.Main.getInstance();
+            int xp = getNeededXp() + amount;
+            int abs = Math.abs(xp - main.getConfig().getInt("xp-levelup-amount"));
+            NukkitDB.updateDocument(getUuid(), "uuid", "global-xp", xp, database, collection);
+            if (xp >= main.getConfig().getInt("xp-levelup-amount")) {
+                addLevel();
+                NukkitDB.updateDocument(
+                        getUuid(), "uuid", "experience", abs, database, collection
+                );
+            } else {
+                NukkitDB.updateDocument(
+                        getUuid(), "uuid", "experience", xp, database, collection
+                );
+            }
+        }
     }
 
     public void removeXp(int amount) {
-
+        if (getPlugin("Afterlife") != null) {
+            String database = Afterlife.Main.getInstance().getConfig().getString("database");
+            String collection = Afterlife.Main.getInstance().getConfig().getString("collection");
+            Afterlife.Main main = Afterlife.Main.getInstance();
+            int xp = getNeededXp() - amount;
+            int globalXp = getXp() - amount;
+            int abs = Math.abs(getNeededXp() - amount);
+            int difference = Math.abs(main.getConfig().getInt("xp-levelup-amount") - abs);
+            if (xp < 0) {
+                if (getLevels() > 0) {
+                    removeLevel();
+                    NukkitDB.updateDocument(
+                            getUuid(), "uuid", "experience", difference, database, collection
+                    );
+                } else {
+                    NukkitDB.updateDocument(
+                            getUuid(), "uuid", "experience", 0, database, collection
+                    );
+                }
+            } else {
+                NukkitDB.updateDocument(
+                        getUuid(), "uuid", "experience", xp, database, collection
+                );
+            }
+            NukkitDB.updateDocument(
+                    getUuid(), "uuid", "global-xp", globalXp, database, collection
+            );
+        }
     }
 
     public void addLevel() {
-
+        if (getPlugin("Afterlife") != null) {
+            String database = Afterlife.Main.getInstance().getConfig().getString("database");
+            String collection = Afterlife.Main.getInstance().getConfig().getString("collection");
+            NukkitDB.updateDocument(
+                    getUuid(), "uuid", "levels", getLevels() + 1, database, collection
+            );
+        }
     }
 
     public void removeLevel() {
-
+        if (getPlugin("Afterlife") != null) {
+            String database = Afterlife.Main.getInstance().getConfig().getString("database");
+            String collection = Afterlife.Main.getInstance().getConfig().getString("collection");
+            if (getLevels() > 0) {
+                NukkitDB.updateDocument(
+                        getUuid(), "uuid", "levels", getLevels() + 1, database, collection
+                );
+            }
+        }
     }
 }

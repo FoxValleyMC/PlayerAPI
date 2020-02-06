@@ -18,10 +18,9 @@ repositories {
 
 dependencies {
     implementation "cn.nukkit:nukkit:1.0-SNAPSHOT"
-    implementation "com.github.TimelessMC:NukkitDB:master-SNAPSHOT"
-    implementation "com.github.TimelessMC:AliasPro:master-SNAPSHOT"
-    implementation "com.github.TimelessMC:NetWorth:361989e"
-    implementation "com.github.TimelessMC:Afterlife:27c0288"
+    implementation "com.github.FoxValleyMC:NukkitDB:master-SNAPSHOT"
+    implementation "com.github.FoxValleyMC:NetWorth:master-SNAPSHOT"
+    implementation "com.github.FoxValleyMC:AfterLife:27c0288ff0"
 }
 
 jar {

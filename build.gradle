@@ -20,7 +20,7 @@ dependencies {
     implementation "cn.nukkit:nukkit:1.0-SNAPSHOT"
     implementation "com.github.FoxValleyMC:NukkitDB:master-SNAPSHOT"
     implementation "com.github.FoxValleyMC:NetWorth:master-SNAPSHOT"
-    implementation "com.github.FoxValleyMC:AfterLife:27c0288ff0"
+    implementation "com.github.FoxValleyMC:Afterlife:master-SNAPSHOT"
 }
 
 jar {

@@ -19,7 +19,6 @@ repositories {
 dependencies {
     implementation "cn.nukkit:nukkit:1.0-SNAPSHOT"
     implementation "com.github.FoxValleyMC:NukkitDB:master-SNAPSHOT"
-    implementation "com.github.FoxValleyMC:NetWorth:master-SNAPSHOT"
     implementation "com.github.FoxValleyMC:Afterlife:4b58121"
 }
 

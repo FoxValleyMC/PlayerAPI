@@ -78,55 +78,55 @@ public class PlayerAPI extends Player implements IPlayer, NetWorthImpl, Afterlif
 
     // NetWorth
     public int getMoney() {
-        if (getPlugin("NetWorth") != null) {
-            String database = NetWorth.Main.getInstance().getConfig().getString("database");
-            String collection = NetWorth.Main.getInstance().getConfig().getString("collection");
-            return Integer.parseInt(
-                    NukkitDB.query(
-                            getUuid(), "uuid", database, collection
-                    ).get("balance").toString()
-            );
-        }
+//        if (getPlugin("NetWorth") != null) {
+//            String database = NetWorth.Main.getInstance().getConfig().getString("database");
+//            String collection = NetWorth.Main.getInstance().getConfig().getString("collection");
+//            return Integer.parseInt(
+//                    NukkitDB.query(
+//                            getUuid(), "uuid", database, collection
+//                    ).get("balance").toString()
+//            );
+//        }
         return 0;
     }
 
     public void setMoney(int amount) {
-        if (getPlugin("NetWorth") != null) {
-            String database = NetWorth.Main.getInstance().getConfig().getString("database");
-            String collection = NetWorth.Main.getInstance().getConfig().getString("collection");
-            NukkitDB.updateDocument(
-                    getUuid(), "uuid", "balance", amount, database, collection
-            );
-        }
+//        if (getPlugin("NetWorth") != null) {
+//            String database = NetWorth.Main.getInstance().getConfig().getString("database");
+//            String collection = NetWorth.Main.getInstance().getConfig().getString("collection");
+//            NukkitDB.updateDocument(
+//                    getUuid(), "uuid", "balance", amount, database, collection
+//            );
+//        }
     }
 
     public void addMoney(int amount) {
-        if (getPlugin("NetWorth") != null) {
-            String database = NetWorth.Main.getInstance().getConfig().getString("database");
-            String collection = NetWorth.Main.getInstance().getConfig().getString("collection");
-            int currentBalance = getMoney();
-            int newBalance = currentBalance + amount;
-            NukkitDB.updateDocument(
-                    getUuid(), "uuid", "balance", newBalance, database, collection
-            );
-        }
+//        if (getPlugin("NetWorth") != null) {
+//            String database = NetWorth.Main.getInstance().getConfig().getString("database");
+//            String collection = NetWorth.Main.getInstance().getConfig().getString("collection");
+//            int currentBalance = getMoney();
+//            int newBalance = currentBalance + amount;
+//            NukkitDB.updateDocument(
+//                    getUuid(), "uuid", "balance", newBalance, database, collection
+//            );
+//        }
     }
 
     public void subtractMoney(int amount) {
-        if (getPlugin("NetWorth") != null) {
-            String database = NetWorth.Main.getInstance().getConfig().getString("database");
-            String collection = NetWorth.Main.getInstance().getConfig().getString("collection");
-            int currentBalance = getMoney();
-            int newBalance;
-            if (currentBalance <= 0) {
-                newBalance = 0;
-            } else {
-                newBalance = currentBalance - amount;
-            }
-            NukkitDB.updateDocument(
-                    getUuid(), "uuid", "balance", newBalance, database, collection
-            );
-        }
+//        if (getPlugin("NetWorth") != null) {
+//            String database = NetWorth.Main.getInstance().getConfig().getString("database");
+//            String collection = NetWorth.Main.getInstance().getConfig().getString("collection");
+//            int currentBalance = getMoney();
+//            int newBalance;
+//            if (currentBalance <= 0) {
+//                newBalance = 0;
+//            } else {
+//                newBalance = currentBalance - amount;
+//            }
+//            NukkitDB.updateDocument(
+//                    getUuid(), "uuid", "balance", newBalance, database, collection
+//            );
+//        }
     }
 
     // Afterlife

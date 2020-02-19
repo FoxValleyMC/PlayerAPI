@@ -11,7 +11,7 @@ public interface TelegramImpl {
 
     List<Object> getMail();
 
-    void sendTelegram(PlayerAPI to, String Subject, String content);
+    void sendTelegram(Map<String, Object> to, String Subject, String content);
 
     void deleteTelegram(int id);
 

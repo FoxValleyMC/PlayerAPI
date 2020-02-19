@@ -344,7 +344,7 @@ public class PlayerAPI extends Player implements IPlayer, NetWorthImpl, Afterlif
         return null;
     }
 
-    public void sendTelegram(PlayerAPI to, String subject, String content) {
+    public void sendTelegram(Map<String, Object> to, String subject, String content) {
         String database = TelegramUI.Main.getInstance().getConfig().getString("database");
         String collection = TelegramUI.Main.getInstance().getConfig().getString("collection");
         if (getPlugin("Afterlife") != null) {
@@ -357,7 +357,7 @@ public class PlayerAPI extends Player implements IPlayer, NetWorthImpl, Afterlif
                 mailData.add(3, content);
                 telegram.add(mailData);
                 NukkitDB.updateDocument(
-                        this.getUuid(), "uuid", "mail", telegram, database, collection
+                        to.get("uuid").toString(), "uuid", "mail", telegram, database, collection
                 );
             }
         }

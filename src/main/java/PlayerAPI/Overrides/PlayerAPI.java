@@ -48,8 +48,23 @@ public class PlayerAPI extends Player implements IPlayer, NetWorthImpl, Afterlif
         return found;
     }
 
-    public Plugin getPlugin(String name) {
-        return this.getServer().getPluginManager().getPlugin(name);
+    public static Map<String, Object> getOfflinePlayer(String name) {
+        String database = getPlugin("PlayerAPI").getConfig().getString("database");
+        String collection = getPlugin("PlayerAPI").getConfig().getString("collection");
+
+        if (NukkitDB.query(name, "defaultName", database, collection) != null) {
+            return NukkitDB.query(name, "defaultName", database, collection);
+        }
+
+        if (NukkitDB.query(name, "alias", database, collection) != null) {
+            return NukkitDB.query(name, "alias", database, collection);
+        }
+
+        return null;
+    }
+
+    public static Plugin getPlugin(String name) {
+        return Server.getInstance().getPluginManager().getPlugin(name);
     }
 
     public String getUuid() {

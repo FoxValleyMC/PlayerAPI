@@ -20,6 +20,7 @@ dependencies {
     implementation "cn.nukkit:nukkit:1.0-SNAPSHOT"
     implementation "com.github.FoxValleyMC:NukkitDB:master-SNAPSHOT"
     implementation "com.github.FoxValleyMC:Afterlife:4b58121"
+    implementation "com.github.FoxValleyMC:TelegramUI:master-SNAPSHOT"
 }
 
 jar {

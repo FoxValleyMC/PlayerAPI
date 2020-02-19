@@ -8,7 +8,11 @@ import cn.nukkit.Server;
 import cn.nukkit.network.SourceInterface;
 import cn.nukkit.plugin.Plugin;
 
-public class PlayerAPI extends Player implements IPlayer, NetWorthImpl, AfterlifeImpl {
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+public class PlayerAPI extends Player implements IPlayer, NetWorthImpl, AfterlifeImpl, TelegramImpl {
 
     public PlayerAPI(SourceInterface interfaz, Long clientID, String ip, int port) {
         super(interfaz, clientID, ip, port);
@@ -302,6 +306,56 @@ public class PlayerAPI extends Player implements IPlayer, NetWorthImpl, Afterlif
                 NukkitDB.updateDocument(
                         getUuid(), "uuid", "levels", getLevels() + 1, database, collection
                 );
+            }
+        }
+    }
+
+    // TelegramUI
+    public Map<String, Object> getTelegramData() {
+        if (getPlugin("Afterlife") != null) {
+            String database = TelegramUI.Main.getInstance().getConfig().getString("database");
+            String collection = TelegramUI.Main.getInstance().getConfig().getString("collection");
+            return NukkitDB.query(
+                    this.getUuid(), "uuid", database, collection
+            );
+        }
+        return null;
+    }
+
+    public List<Object> getMail() {
+        if (getPlugin("Afterlife") != null) {
+            return (List<Object>) getTelegramData().get("mail");
+        }
+        return null;
+    }
+
+    public void sendTelegram(PlayerAPI to, String subject, String content) {
+        String database = TelegramUI.Main.getInstance().getConfig().getString("database");
+        String collection = TelegramUI.Main.getInstance().getConfig().getString("collection");
+        if (getPlugin("Afterlife") != null) {
+            if (getMail() != null) {
+                List<Object> telegram = getMail();
+                List<Object> mailData = new ArrayList<>();
+                mailData.add(0, false);
+                mailData.add(1, this.getAlias());
+                mailData.add(2, subject);
+                mailData.add(3, content);
+                telegram.add(mailData);
+                NukkitDB.updateDocument(
+                        this.getUuid(), "uuid", "mail", telegram, database, collection
+                );
+            }
+        }
+    }
+
+    public void deleteTelegram(int id) {
+        if (getPlugin("Afterlife") != null) {
+
+            List<Object> mailList = getMail();
+
+            for (int i = 0; i < mailList.size(); i++) {
+                List<Object> mailData = (List<Object>) mailList.get(i);
+                System.out.println(mailList.indexOf(mailData));
             }
         }
     }

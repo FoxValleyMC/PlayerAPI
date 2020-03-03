@@ -3,7 +3,7 @@ plugins {
 }
 
 group 'PlayerAPI'
-version '1.0.0'
+version '1.0.1'
 
 sourceCompatibility = 1.8
 
@@ -19,7 +19,6 @@ repositories {
 dependencies {
     implementation "cn.nukkit:nukkit:1.0-SNAPSHOT"
     implementation "com.github.FoxValleyMC:NukkitDB:master-SNAPSHOT"
-    implementation "com.github.FoxValleyMC:Afterlife:4b58121"
 }
 
 jar {

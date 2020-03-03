@@ -15,6 +15,35 @@ public class PlayerAPI extends Player implements IPlayer {
         super(interfaz, clientID, ip, port);
     }
 
+    public static PlayerAPI get(String name) {
+        PlayerAPI found = null;
+        name = name.toLowerCase();
+        int delta = 2147483647;
+        for (Player value : Server.getInstance().getOnlinePlayers().values()) {
+            PlayerAPI player = (PlayerAPI) value;
+            if (player.getName().toLowerCase().startsWith(name)) {
+                int curDelta = player.getName().length() - name.length();
+                if (curDelta < delta) {
+                    found = player;
+                    delta = curDelta;
+                }
+                if (curDelta == 0) {
+                    break;
+                }
+            } else if (player.getAlias().toLowerCase().startsWith(name)) {
+                int curDelta = player.getAlias().length() - name.length();
+                if (curDelta < delta) {
+                    found = player;
+                    delta = curDelta;
+                }
+                if (curDelta == 0) {
+                    break;
+                }
+            }
+        }
+        return found;
+    }
+
     public static Map<String, Object> getOfflinePlayer(String name) {
         String database = getPlugin("PlayerAPI").getConfig().getString("database");
         String collection = getPlugin("PlayerAPI").getConfig().getString("collection");
@@ -60,6 +89,5 @@ public class PlayerAPI extends Player implements IPlayer {
     public String toString() {
         return "PlayerAPI(name='" + this.getAlias() + "', location=" + super.toString() + ')';
     }
-
 
 }

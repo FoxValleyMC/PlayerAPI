@@ -1,6 +1,7 @@
 package PlayerAPI.Overrides;
 
 import NukkitDB.NukkitDB;
+import NukkitDB.Provider.MongoDB;
 import cn.nukkit.IPlayer;
 import cn.nukkit.Player;
 import cn.nukkit.Server;
@@ -45,15 +46,14 @@ public class PlayerAPI extends Player implements IPlayer {
     }
 
     public static Map<String, Object> getOfflinePlayer(String name) {
-        String database = getPlugin("PlayerAPI").getConfig().getString("database");
         String collection = getPlugin("PlayerAPI").getConfig().getString("collection");
 
-        if (NukkitDB.query(name, "defaultName", database, collection) != null) {
-            return NukkitDB.query(name, "defaultName", database, collection);
+        if (MongoDB.getDocument(MongoDB.getCollection(collection), "defaultName", name) != null) {
+            return MongoDB.getDocument(MongoDB.getCollection(collection), "defaultName", name);
         }
 
-        if (NukkitDB.query(name, "alias", database, collection) != null) {
-            return NukkitDB.query(name, "alias", database, collection);
+        if (MongoDB.getDocument(MongoDB.getCollection(collection), "alias", name) != null) {
+            return MongoDB.getDocument(MongoDB.getCollection(collection), "alias", name);
         }
 
         return null;
@@ -68,20 +68,18 @@ public class PlayerAPI extends Player implements IPlayer {
     }
 
     public void setAlias(String alias) {
-        String database = getPlugin("PlayerAPI").getConfig().getString("database");
         String collection = getPlugin("PlayerAPI").getConfig().getString("collection");
         setNameTag(alias);
         setDisplayName(alias);
-        NukkitDB.updateDocument(
-                getUuid(), "uuid", "alias", alias, database, collection
+        MongoDB.updateOne(
+                MongoDB.getCollection(collection), "uuid", getUuid(), "alias", alias
         );
     }
 
     public String getAlias() {
-        String database = getPlugin("PlayerAPI").getConfig().getString("database");
         String collection = getPlugin("PlayerAPI").getConfig().getString("collection");
-        return NukkitDB.query(
-                getUuid(), "uuid", database, collection
+        return MongoDB.getDocument(
+                MongoDB.getCollection(collection), "uuid", getUuid()
         ).get("alias").toString();
     }
 

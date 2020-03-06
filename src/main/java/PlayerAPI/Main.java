@@ -1,6 +1,7 @@
 package PlayerAPI;
 
 import NukkitDB.NukkitDB;
+import NukkitDB.Provider.MongoDB;
 import PlayerAPI.Overrides.PlayerAPI;
 import cn.nukkit.command.CommandMap;
 import cn.nukkit.event.EventHandler;
@@ -26,8 +27,8 @@ public class Main extends PluginBase implements Listener {
         saveDefaultConfig();
         getServer().getPluginManager().registerEvents(this, this);
 
-        if (getConfig().getString("database").isEmpty() || getConfig().getString("collection").isEmpty()) {
-            getLogger().error("Edit config!");
+        if (!getConfig().getBoolean("use-MongoDB") || getConfig().getString("collection").isEmpty()) {
+            getLogger().error("please edit config.");
             getServer().getPluginManager().disablePlugin(this);
         }
 
@@ -42,11 +43,10 @@ public class Main extends PluginBase implements Listener {
     public void onJoin(PlayerJoinEvent event) {
         PlayerAPI player = (PlayerAPI) event.getPlayer();
         String uuid = player.getUuid();
-
-        String database = this.getConfig().getString("database");
         String collection = this.getConfig().getString("collection");
-        Map<String, Object> query = NukkitDB.query(
-                uuid, "uuid", database, collection
+
+        Map<String, Object> query = MongoDB.getDocument(
+                MongoDB.getCollection(collection), "uuid", uuid
         );
 
         if (query == null) {
@@ -54,8 +54,8 @@ public class Main extends PluginBase implements Listener {
             objectMap.put("uuid", uuid);
             objectMap.put("defaultName", player.getName());
             objectMap.put("alias", player.getName());
-            NukkitDB.insertDocument(
-                    objectMap, database, collection
+            MongoDB.insertOne(
+                    objectMap, MongoDB.getCollection(collection)
             );
         } else {
             String alias = query.get("alias").toString();
@@ -63,7 +63,6 @@ public class Main extends PluginBase implements Listener {
             player.setDisplayName(alias);
             event.setJoinMessage(TextFormat.YELLOW + alias + " joined the game");
         }
-
     }
 
 }
